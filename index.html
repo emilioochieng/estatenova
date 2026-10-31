@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EstateNova – Property discovery, made clearer</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f766e'/%3E%3Cpath d='M14 33 32 17l18 16v15H14z' fill='none' stroke='%23fff' stroke-width='5' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#f6f4ef;--card:#fff;--ink:#10212b;--muted:#5b6b75;--line:#e2ded4;--accent:#0f766e;--accent-ink:#fff;--soft:#dff1ee;--gold:#b7791f;--bad:#b3261e;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#0d161c;--card:#142029;--ink:#e9f0f3;--muted:#98a9b2;--line:#243540;--accent:#2dd4bf;--accent-ink:#04201c;--soft:#143a38;--gold:#f6ad55;--bad:#f87171;color-scheme:dark}}
+*{box-sizing:border-box}html{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h1,h2,h3{line-height:1.15;letter-spacing:-.02em;margin:0}button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
+.wrap{max-width:1180px;margin:auto;padding:0 18px}.btn{border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);border-radius:10px;padding:10px 16px;font-weight:600}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}.btn.sm{padding:6px 11px;font-size:13px}.btn:disabled{opacity:.5}
+header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;gap:14px;height:62px}.logo{font-weight:800;font-size:20px;letter-spacing:-.03em;margin-right:auto;display:flex;gap:8px;align-items:center}.logo i{width:28px;height:28px;border-radius:8px;background:var(--accent);display:grid;place-items:center}
+nav{display:flex;gap:4px}nav a{padding:8px 11px;border-radius:9px;text-decoration:none;color:var(--muted);font-weight:500;font-size:14px}nav a:hover{background:var(--card);color:var(--ink)}
+.hero{padding:44px 0 26px}.hero h1{font-size:clamp(32px,6vw,58px);max-width:15ch}.hero p{color:var(--muted);font-size:18px;max-width:52ch;margin:12px 0 22px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;box-shadow:0 8px 30px rgb(0 0 0/.06)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}.tab{border:1px solid var(--line);background:transparent;border-radius:999px;padding:7px 16px;font-weight:600;font-size:14px}.tab[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.filters{display:grid;grid-template-columns:2fr 1.2fr 1fr 1fr auto;gap:10px;align-items:end}label{font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);display:grid;gap:4px}
+input,select,textarea{background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:9px 10px;width:100%;font-size:14px}
+.bar{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between;margin:22px 0 14px}.chk{display:flex;gap:8px;align-items:center;font-size:14px;text-transform:none;letter-spacing:0;font-weight:500;color:var(--ink)}.chk input{width:auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,270px),1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:transform .15s,box-shadow .15s}.card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgb(0 0 0/.1)}
+.pic{aspect-ratio:16/10;position:relative}.pic svg{width:100%;height:100%;display:block}.save{position:absolute;right:10px;top:10px;width:36px;height:36px;border-radius:50%;border:0;background:var(--card);font-size:17px}
+.tag{position:absolute;left:10px;top:10px;font-size:11px;font-weight:700;padding:4px 9px;border-radius:999px;background:var(--card)}.tag.own{background:var(--accent);color:var(--accent-ink)}
+.body{padding:14px;display:grid;gap:5px}.price{font-size:20px;font-weight:800}.price small{font-size:13px;font-weight:500;color:var(--muted)}.meta{color:var(--muted);font-size:13px;display:flex;flex-wrap:wrap;gap:10px}
+.ok{color:var(--accent);font-weight:700;font-size:12px}.empty{grid-column:1/-1;text-align:center;padding:40px;border:1px dashed var(--line);border-radius:14px;color:var(--muted)}
+section.band{padding:54px 0}section.alt{background:var(--card);border-block:1px solid var(--line)}.sh{margin-bottom:22px;max-width:640px}.sh h2{font-size:clamp(26px,4vw,38px)}.sh p{color:var(--muted);margin:8px 0 0}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:14px}.box{background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:18px}.box h3{font-size:16px;margin-bottom:6px}.box p{margin:0;color:var(--muted);font-size:14px}
+.num{width:30px;height:30px;border-radius:50%;background:var(--soft);color:var(--accent);display:grid;place-items:center;font-weight:800;margin-bottom:10px}.plan .p{font-size:24px;font-weight:800}
+.note{font-size:13px;color:var(--muted);margin-top:14px}
+dialog{border:1px solid var(--line);border-radius:18px;background:var(--card);color:var(--ink);padding:0;width:min(720px,94vw);max-height:92vh}dialog::backdrop{background:rgb(0 0 0/.55)}
+.dh{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid var(--line)}.dh h2{font-size:20px}.db{padding:18px;display:grid;gap:14px}.x{border:0;background:none;font-size:22px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}.chips{display:flex;flex-wrap:wrap;gap:8px}.chip{background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:4px 11px;font-size:13px}
+.ver{display:grid;gap:6px;background:var(--soft);border-radius:12px;padding:12px 14px;font-size:14px}.warn{font-size:12.5px;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:999px;font-weight:600;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:50}.toast.on{opacity:1}
+footer{padding:32px 0;color:var(--muted);font-size:13px;border-top:1px solid var(--line)}
+@media(max-width:860px){nav{display:none}.filters{grid-template-columns:1fr 1fr}.filters .btn{grid-column:1/-1}.row2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><div class="logo"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linejoin="round"><path d="M3 12 12 4l9 8v8H3z"/></svg></i>EstateNova</div>
+<nav><a href="#results" data-go="buy">Buy</a><a href="#results" data-go="rent">Rent</a><a href="#results" data-go="land">Land</a><a href="#results" data-go="commercial">Commercial</a><a href="#how">How it works</a><a href="#plans">Advertise</a></nav>
+<button class="btn ghost sm" id="openAcct" type="button">♡ My account <span id="favN"></span></button><button class="btn sm" id="openList" type="button">List a property</button></div></header>
+
+<main>
+<section class="hero"><div class="wrap">
+  <h1>Property discovery, made clearer.</h1>
+  <p>Kenya-first marketplace for buying, renting, land and commercial property. Every advertiser is verified before a listing goes live.</p>
+  <div class="panel"><div class="tabs" id="tabs"></div>
+    <div class="filters">
+      <label>Area, estate or title<input id="q" placeholder="e.g. Kilimani, Nyali, 3 bedroom"></label>
+      <label>County<select id="county"><option value="">All of Kenya</option></select></label>
+      <label>Max price (KSh)<input id="max" type="number" min="0" step="1000" placeholder="No limit"></label>
+      <label>Bedrooms<select id="beds"><option value="">Any</option><option>1</option><option>2</option><option>3</option><option>4</option></select></label>
+      <button class="btn" id="go" type="button">Search</button></div></div>
+</div></section>
+
+<section class="wrap" id="results">
+  <div class="bar"><div><h2 id="rtitle" style="font-size:26px"></h2><span class="warn" id="rcount"></span></div>
+    <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap"><label class="chk"><input type="checkbox" id="managed"> EstateNova-managed only</label>
+    <label class="chk"><input type="checkbox" id="onlyFav"> Saved only</label>
+    <select id="sort" style="width:auto" aria-label="Sort"><option value="new">Newest</option><option value="lo">Price: low to high</option><option value="hi">Price: high to low</option></select></div></div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<section class="band" id="how"><div class="wrap">
+  <div class="sh"><h2>Two ways a property reaches you</h2><p>We always show you which one you are looking at.</p></div>
+  <div class="cols"><div class="box"><h3>Managed by EstateNova</h3><p>We hold written authority to advertise or manage these properties, handle your enquiries and coordinate viewings with our own team.</p></div>
+  <div class="box"><h3>Independent advertisers</h3><p>Agents, landlords, owners and developers register, pass verification and list through their own dashboards. You deal with them directly.</p></div></div>
+  <div class="sh" style="margin-top:34px"><h2>How a listing gets approved</h2></div>
+  <div class="cols">
+    <div class="box"><div class="num">1</div><h3>Account verification</h3><p>Identity and, where relevant, business registration and agent credentials.</p></div>
+    <div class="box"><div class="num">2</div><h3>Authority to advertise</h3><p>The advertiser must have permission to market the property.</p></div>
+    <div class="box"><div class="num">3</div><h3>Property documents</h3><p>Title, ownership, lease or other supporting documents are reviewed as appropriate.</p></div>
+    <div class="box"><div class="num">4</div><h3>Listing moderation</h3><p>Information, photos, pricing and misleading claims are checked.</p></div>
+    <div class="box"><div class="num">5</div><h3>Publication</h3><p>The listing is approved, the review is recorded and its verification status is shown.</p></div></div>
+  <p class="note">A verified advertiser does not guarantee every claim about a property. Always check ownership and legal interests through official processes and qualified professionals before you pay or sign anything.</p>
+</div></section>
+
+<section class="band alt" id="services"><div class="wrap">
+  <div class="sh"><h2>What EstateNova offers</h2><p>Some services, such as full property management and transaction support, arrive after the marketplace is running well.</p></div>
+  <div class="cols" id="svc"></div></div></section>
+
+<section class="band" id="plans"><div class="wrap">
+  <div class="sh"><h2>Advertise with EstateNova</h2><p>Agents, landlords, owners and developers can list after verification.</p></div>
+  <div class="cols">
+    <div class="box plan"><h3>Starter</h3><div class="p">Free</div><p>1 active listing, standard exposure</p></div>
+    <div class="box plan"><h3>Growth</h3><div class="p">KES 2,000<small>/month</small></div><p>Up to 10 active listings</p></div>
+    <div class="box plan"><h3>Professional</h3><div class="p">KES 5,000<small>/month</small></div><p>Up to 30 listings, enhanced statistics</p></div>
+    <div class="box plan"><h3>Enterprise</h3><div class="p">Custom</div><p>Larger portfolios and dedicated support</p></div></div>
+  <p class="note">Launch prices are suggestions for testing, not researched market rates. Featured listings are priced separately. Payments will be handled manually at launch; M-PESA comes in a later phase.</p>
+  <p><button class="btn" id="openList2" type="button">Start a listing</button> <button class="btn ghost" id="openAdmin" type="button">Demo: moderation queue</button></p>
+</div></section>
+</main>
+
+<footer><div class="wrap"><strong>Demo version.</strong> Listings and advertisers shown here are samples, and nothing is connected to a real database, login or verification provider yet. Enquiries and saved items stay in your browser only.</div></footer>
+
+<dialog id="dlg"><div class="dh"><h2 id="dt"></h2><button class="x" type="button" data-close aria-label="Close">×</button></div><div class="db" id="dbody"></div></dialog>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const WHATSAPP = ""; // add your number as 2547XXXXXXXX; empty lets the visitor choose a chat
+const CATS = {buy:'Properties for sale', rent:'Properties to rent', land:'Land for sale', commercial:'Commercial property'};
+const COUNTIES = ['Nairobi','Mombasa','Kisumu','Nakuru','Kiambu','Kajiado','Machakos','Uasin Gishu'];
+const SERVICES = [['Residential sales','Houses, apartments, villas, maisonettes and townhouses'],['Residential rentals','Bedsitters, studios, apartments and family homes'],['Land sales','Residential, agricultural, commercial and industrial plots'],['Commercial property','Offices, shops, warehouses and commercial buildings'],['New developments','New-build and off-plan listings'],['Agent services','Profiles, listings and enquiry management'],['Property management','Rental marketing, tenant enquiries and maintenance coordination'],['Viewing support','Viewing requests and scheduling'],['Investment discovery','Investment opportunities and development information']];
+const SAMPLE = [
+ {id:1,cat:'rent',type:'Apartment',title:'Bright 2 bedroom apartment',area:'Kilimani',county:'Nairobi',price:85000,per:'month',beds:2,baths:2,size:'96 m²',managed:true,by:'EstateNova',desc:'Secure block with a lift, backup generator, borehole water and parking. Close to Yaya Centre.'},
+ {id:2,cat:'buy',type:'Maisonette',title:'4 bedroom maisonette in a gated estate',area:'Syokimau',county:'Machakos',price:16500000,beds:4,baths:3,size:'210 m²',managed:false,by:'Sample Agent A',desc:'Own-compound maisonette with a DSQ, fitted kitchen and a quiet cul-de-sac.'},
+ {id:3,cat:'rent',type:'Studio',title:'Modern studio near the beach',area:'Nyali',county:'Mombasa',price:38000,per:'month',beds:1,baths:1,size:'42 m²',managed:false,by:'Sample Landlord B',desc:'Furnished studio with sea breeze, 24-hour security and a shared pool.'},
+ {id:4,cat:'land',type:'Residential plot',title:'1/8 acre plot with title deed',area:'Kitengela',county:'Kajiado',price:1800000,beds:0,baths:0,size:'1/8 acre',managed:true,by:'EstateNova',desc:'Flat plot a short walk from the main road, water and power nearby.'},
+ {id:5,cat:'buy',type:'Villa',title:'5 bedroom villa with garden',area:'Karen',county:'Nairobi',price:78000000,beds:5,baths:5,size:'520 m²',managed:false,by:'Sample Agent C',desc:'Large garden, staff quarters, a study and a double garage on a quiet road.'},
+ {id:6,cat:'commercial',type:'Office',title:'Grade A office floor to let',area:'Westlands',county:'Nairobi',price:240000,per:'month',beds:0,baths:2,size:'180 m²',managed:true,by:'EstateNova',desc:'Open-plan floor with fibre, backup power, basement parking and meeting rooms.'},
+ {id:7,cat:'rent',type:'Apartment',title:'3 bedroom family apartment',area:'Milimani',county:'Kisumu',price:55000,per:'month',beds:3,baths:2,size:'130 m²',managed:false,by:'Sample Landlord D',desc:'Spacious rooms, a balcony and ample parking, near schools and the lake.'},
+ {id:8,cat:'land',type:'Agricultural land',title:'2 acres of farmland',area:'Rongai',county:'Nakuru',price:3200000,beds:0,baths:0,size:'2 acres',managed:false,by:'Sample Owner E',desc:'Fertile land with a seasonal stream, suitable for farming or a farm house.'},
+ {id:9,cat:'commercial',type:'Shop',title:'Ground-floor shop on a busy road',area:'Thika Road',county:'Kiambu',price:70000,per:'month',beds:0,baths:1,size:'55 m²',managed:false,by:'Sample Agent F',desc:'High foot traffic frontage, a store room and a shared washroom.'},
+ {id:10,cat:'buy',type:'Apartment',title:'2 bedroom off-plan apartment',area:'Ruiru',county:'Kiambu',price:6200000,beds:2,baths:2,size:'88 m²',managed:true,by:'EstateNova',desc:'New development with a payment plan, a rooftop terrace and a gym. Completion planned within 18 months.'},
+ {id:11,cat:'rent',type:'Bedsitter',title:'Clean bedsitter with water',area:'Milimani',county:'Nakuru',price:12000,per:'month',beds:1,baths:1,size:'28 m²',managed:false,by:'Sample Landlord G',desc:'Tiled floor, steady water and a compound with security.'},
+ {id:12,cat:'commercial',type:'Warehouse',title:'Warehouse with loading bay',area:'Mombasa Road',county:'Nairobi',price:480000,per:'month',beds:0,baths:2,size:'900 m²',managed:false,by:'Sample Agent H',desc:'High ceiling, loading bay, office space and 24-hour security.'}];
+const LS = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d } catch { return d } };
+const save = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)) } catch {} };
+const $ = s => document.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let S = { cat:'buy', q:'', county:'', max:'', beds:'', managed:false, onlyFav:false, sort:'new' };
+let fav = new Set(LS('en_fav', [])), enq = LS('en_enq', []), views = LS('en_views', []), pending = LS('en_pending', []), approved = LS('en_ok', []);
+const all = () => [...approved, ...SAMPLE];
+const money = n => n >= 1e6 ? 'KSh ' + (n / 1e6).toFixed(n % 1e6 ? 1 : 0) + 'M' : 'KSh ' + n.toLocaleString('en-KE');
+const priceHtml = p => `<div class="price">${money(p.price)}${p.per ? ` <small>/ ${p.per}</small>` : ''}</div>`;
+const COL = { buy:['#0f766e','#99d6cf'], rent:['#2563eb','#bcd2fb'], land:['#a16207','#f1d9a3'], commercial:['#7c3aed','#d9c9fa'] };
+function art(p) { const [a, b] = COL[p.cat]; const land = p.cat === 'land';
+  return `<svg viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice" role="img" aria-label="${esc(p.type)}"><rect width="160" height="100" fill="${b}"/><rect y="72" width="160" height="28" fill="${a}" opacity=".35"/>${land ? `<path d="M0 70q40-24 80-6t80-10v46H0z" fill="${a}" opacity=".6"/><circle cx="128" cy="26" r="12" fill="#fff" opacity=".8"/>` : `<rect x="46" y="34" width="68" height="40" fill="${a}"/><path d="M40 36 80 12l40 24z" fill="${a}" opacity=".85"/><rect x="70" y="50" width="20" height="24" fill="#fff" opacity=".85"/><rect x="52" y="44" width="12" height="12" fill="#fff" opacity=".6"/><rect x="96" y="44" width="12" height="12" fill="#fff" opacity=".6"/>`}</svg>`; }
+function toast(m) { const t = $('#toast'); t.textContent = m; t.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('on'), 2600); }
+
+function list() {
+  const q = S.q.trim().toLowerCase();
+  let r = all().filter(p => p.cat === S.cat && (!S.county || p.county === S.county) && (!S.max || p.price <= +S.max) && (!S.beds || p.beds >= +S.beds) && (!S.managed || p.managed) && (!S.onlyFav || fav.has(p.id))
+    && (!q || `${p.title} ${p.area} ${p.county} ${p.type}`.toLowerCase().includes(q)));
+  if (S.sort === 'lo') r.sort((a, b) => a.price - b.price); else if (S.sort === 'hi') r.sort((a, b) => b.price - a.price);
+  return r;
+}
+function render() {
+  $('#tabs').innerHTML = Object.entries(CATS).map(([k, v]) => `<button class="tab" type="button" data-cat="${k}" aria-pressed="${k === S.cat}">${k === 'buy' ? 'Buy' : k === 'rent' ? 'Rent' : k === 'land' ? 'Land' : 'Commercial'}</button>`).join('');
+  const r = list(); $('#rtitle').textContent = CATS[S.cat]; $('#rcount').textContent = `${r.length} ${r.length === 1 ? 'listing' : 'listings'}`;
+  $('#grid').innerHTML = r.map(p => `<article class="card" data-open="${p.id}" tabindex="0"><div class="pic">${art(p)}<span class="tag ${p.managed ? 'own' : ''}">${p.managed ? 'Managed by EstateNova' : 'Independent advertiser'}</span><button class="save" type="button" data-fav="${p.id}" aria-label="Save property">${fav.has(p.id) ? '♥' : '♡'}</button></div>
+    <div class="body">${priceHtml(p)}<strong>${esc(p.title)}</strong><div class="meta"><span>${esc(p.area)}, ${esc(p.county)}</span>${p.beds ? `<span>${p.beds} bed</span>` : ''}${p.baths ? `<span>${p.baths} bath</span>` : ''}<span>${esc(p.size)}</span></div><span class="ok">✓ Verified advertiser</span></div></article>`).join('') || '<div class="empty">No properties match. Try a wider budget or another county.</div>';
+  $('#favN').textContent = fav.size ? `(${fav.size})` : '';
+}
+const dlg = $('#dlg');
+function open(title, html) { $('#dt').textContent = title; $('#dbody').innerHTML = html; if (!dlg.open) dlg.showModal(); }
+function detail(id) {
+  const p = all().find(x => x.id == id); if (!p) return;
+  const wa = `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(`Hello, I am interested in "${p.title}" in ${p.area} on EstateNova.`)}`;
+  open(p.title, `<div class="pic" style="border-radius:12px;overflow:hidden">${art(p)}</div>
+  <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;align-items:center">${priceHtml(p)}<span class="chip">${p.managed ? 'Managed by EstateNova' : 'Independent advertiser: ' + esc(p.by)}</span></div>
+  <div class="chips"><span class="chip">${esc(p.type)}</span><span class="chip">${esc(p.area)}, ${esc(p.county)}</span>${p.beds ? `<span class="chip">${p.beds} bedrooms</span>` : ''}${p.baths ? `<span class="chip">${p.baths} bathrooms</span>` : ''}<span class="chip">${esc(p.size)}</span></div>
+  <p style="margin:0">${esc(p.desc)}</p>
+  <div class="ver"><strong>Verification status</strong><span>✓ Advertiser identity checked</span><span>✓ Authority to advertise confirmed</span><span>✓ Listing reviewed by EstateNova moderators</span></div>
+  <p class="warn">Verification does not guarantee every claim. Check ownership and documents yourself with an official search and a qualified professional before paying.</p>
+  <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn ghost" type="button" data-fav="${p.id}" data-keep>${fav.has(p.id) ? '♥ Saved' : '♡ Save'}</button><a class="btn" href="${wa}" target="_blank" rel="noopener" style="text-decoration:none">WhatsApp</a></div>
+  <form id="enqf" data-id="${p.id}" style="display:grid;gap:10px"><h3>Send an enquiry</h3><div class="row2"><label>Your name<input name="name" required></label><label>Phone<input name="phone" type="tel" required placeholder="07XX XXX XXX"></label></div><label>Message<textarea name="msg" rows="2">I would like more details about this property.</textarea></label><button class="btn" type="submit">Send enquiry</button></form>
+  <form id="viewf" data-id="${p.id}" style="display:grid;gap:10px"><h3>Request a viewing</h3><div class="row2"><label>Preferred date<input name="date" type="date" required></label><label>Time<select name="time"><option>Morning</option><option>Afternoon</option><option>Evening</option></select></label></div><div class="row2"><label>Your name<input name="name" required></label><label>Phone<input name="phone" type="tel" required></label></div><button class="btn ghost" type="submit">Request viewing</button></form>`);
+}
+function account() {
+  const saved = all().filter(p => fav.has(p.id));
+  open('My account (demo)', `<p class="warn">Sign-in is not connected yet, so this shows what is stored in this browser.</p>
+  <div><h3>Saved properties (${saved.length})</h3>${saved.map(p => `<p style="margin:6px 0"><a href="#" data-open="${p.id}">${esc(p.title)}</a> · ${money(p.price)}</p>`).join('') || '<p class="warn">Nothing saved yet.</p>'}</div>
+  <div><h3>Enquiries (${enq.length})</h3>${enq.map(e => `<p style="margin:6px 0">${esc(e.title)} · <span class="warn">${esc(e.when)}</span></p>`).join('') || '<p class="warn">No enquiries yet.</p>'}</div>
+  <div><h3>Viewing requests (${views.length})</h3>${views.map(e => `<p style="margin:6px 0">${esc(e.title)} · ${esc(e.date)}, ${esc(e.time)} <span class="ok">Pending confirmation</span></p>`).join('') || '<p class="warn">No viewings yet.</p>'}</div>`);
+}
+function listForm() {
+  open('List a property', `<p class="warn">Your listing is reviewed before it is published. In the full version you would also upload your ID, authority documents and property photos.</p>
+  <form id="listf" style="display:grid;gap:10px"><div class="row2"><label>I am a<select name="role"><option>Agent</option><option>Landlord</option><option>Property owner</option><option>Developer</option></select></label><label>Business or full name<input name="by" required></label></div>
+  <label>Listing title<input name="title" required maxlength="80" placeholder="e.g. 3 bedroom bungalow"></label>
+  <div class="row2"><label>Category<select name="cat"><option value="buy">For sale</option><option value="rent">To rent</option><option value="land">Land</option><option value="commercial">Commercial</option></select></label><label>Property type<input name="type" required placeholder="Apartment, plot, office…"></label></div>
+  <div class="row2"><label>County<select name="county">${COUNTIES.map(c => `<option>${c}</option>`).join('')}</select></label><label>Area or estate<input name="area" required></label></div>
+  <div class="row2"><label>Price in KSh (monthly rent for rentals)<input name="price" type="number" min="1" required></label><label>Bedrooms<input name="beds" type="number" min="0" value="0"></label></div>
+  <label>Description<textarea name="desc" rows="3" required maxlength="400"></textarea></label>
+  <label class="chk"><input type="checkbox" name="auth" required> I confirm I have authority to advertise this property</label><button class="btn" type="submit">Submit for review</button></form>`);
+}
+function admin() {
+  open('Demo: moderation queue', `<p class="warn">In the real system only signed-in moderators see this, after checking the advertiser, their authority and the documents. Approved listings appear in search.</p>
+  ${pending.map((p, i) => `<div class="box"><strong>${esc(p.title)}</strong><p>${esc(p.role)}: ${esc(p.by)} · ${esc(p.area)}, ${esc(p.county)} · ${money(p.price)}${p.per ? ' / month' : ''}</p><p style="margin-top:8px"><button class="btn sm" data-ok="${i}" type="button">Approve</button> <button class="btn ghost sm" data-no="${i}" type="button">Reject</button></p></div>`).join('') || '<p class="warn">The queue is empty. Submit a listing with “List a property” first.</p>'}`);
+}
+
+document.addEventListener('click', e => {
+  const t = e.target;
+  const f = t.closest('[data-fav]'); if (f) { e.stopPropagation(); const id = +f.dataset.fav; fav.has(id) ? fav.delete(id) : fav.add(id); save('en_fav', [...fav]); render(); if (f.dataset.keep !== undefined) f.textContent = fav.has(id) ? '♥ Saved' : '♡ Save'; return; }
+  const o = t.closest('[data-open]'); if (o) { e.preventDefault(); detail(o.dataset.open); return; }
+  const c = t.closest('[data-cat]'); if (c) { S.cat = c.dataset.cat; render(); return; }
+  const g = t.closest('[data-go]'); if (g) { S.cat = g.dataset.go; render(); return; }
+  if (t.closest('[data-close]')) dlg.close();
+  if (t.id === 'openAcct') account(); if (t.id === 'openList' || t.id === 'openList2') listForm(); if (t.id === 'openAdmin') admin();
+  if (t.dataset.ok !== undefined) { const p = pending.splice(+t.dataset.ok, 1)[0]; approved.unshift({ ...p, id: Date.now(), managed: false, size: p.size || '–' }); save('en_pending', pending); save('en_ok', approved); render(); admin(); toast('Approved and published'); }
+  if (t.dataset.no !== undefined) { pending.splice(+t.dataset.no, 1); save('en_pending', pending); admin(); toast('Rejected'); }
+});
+document.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.matches('.card')) detail(e.target.dataset.open); });
+document.addEventListener('submit', e => {
+  e.preventDefault(); const f = e.target, d = Object.fromEntries(new FormData(f));
+  if (f.id === 'enqf') { const p = all().find(x => x.id == f.dataset.id); enq.unshift({ title: p.title, when: new Date().toLocaleString('en-KE') }); save('en_enq', enq); dlg.close(); toast('Enquiry sent. The advertiser will contact you.'); }
+  if (f.id === 'viewf') { const p = all().find(x => x.id == f.dataset.id); views.unshift({ title: p.title, date: d.date, time: d.time }); save('en_views', views); dlg.close(); toast('Viewing requested. We will confirm the time.'); }
+  if (f.id === 'listf') { pending.push({ role: d.role, by: d.by, title: d.title, cat: d.cat, type: d.type, county: d.county, area: d.area, price: +d.price, per: d.cat === 'rent' ? 'month' : '', beds: +d.beds || 0, baths: 0, desc: d.desc }); save('en_pending', pending); dlg.close(); toast('Submitted for review. It appears after approval.'); }
+});
+const bind = () => { S.q = $('#q').value; S.county = $('#county').value; S.max = $('#max').value; S.beds = $('#beds').value; S.managed = $('#managed').checked; S.onlyFav = $('#onlyFav').checked; S.sort = $('#sort').value; render(); };
+['q', 'county', 'max', 'beds', 'managed', 'onlyFav', 'sort'].forEach(id => $('#' + id).addEventListener(id === 'q' || id === 'max' ? 'input' : 'change', bind));
+$('#go').addEventListener('click', () => { bind(); $('#results').scrollIntoView(); });
+$('#county').insertAdjacentHTML('beforeend', COUNTIES.map(c => `<option>${c}</option>`).join(''));
+$('#svc').innerHTML = SERVICES.map(([a, b]) => `<div class="box"><h3>${a}</h3><p>${b}</p></div>`).join('');
+render();
+</script>
+</body>
+</html>
